@@ -10,32 +10,33 @@ class UserController extends Controller
 {
     protected $model;
 
-    public function _construct(User $user)
+    public function __construct(User $user)
     {
         $this->model = $user;
     }
     public function index(Request $request)
     {
         $users = $this->model
-                        ->getUsers(
-                            search: $request->search ?? ''
-                        );
-
-        return view('users.index',compact('users'));
+            ->getUsers(
+                $request->search ?? ''
+            );
+        return view('users.index', compact('users'));
     }
 
     public function show($id)
     {
-        if(!$user = this->model->find($id))
-            return redirec/t()->route('users.index');
+        $user = $this->model->find($id);
+        if (!$user)
+            return redirect()->route('users.index');
 
-        return view('users.show',compact('user'));
+        return view('users.show', compact('user'));
     }
 
     public function store(StoreUpdateUserFormRequest $request)
     {
         $data = $request->all();
         $data['password'] = bcrypt($request->password);
+
 
         $user = User::create($data);
 
@@ -54,18 +55,18 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        if(!$user = this->model->find($id))
+        if (!$user = $this->model->find($id))
             return redirect()->route('users.index');
         return view('users.edit', compact('user'));
     }
 
     public function update(Request $request, $id)
     {
-        if(!$user = this->model->find($id))
+        if (!$user = $this->model->find($id))
             return redirect()->route('users.index');
 
-        $data = $request->only('name','email');
-        if($request->password)
+        $data = $request->only('name', 'email');
+        if ($request->password)
             $data['password'] = bcrypt($request->password);
 
         $user->update($data);
@@ -75,7 +76,7 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        if(!$user = this->model->find($id))
+        if (!$user = $this->model->find($id))
             return redirect()->route('users.index');
 
         $user->delete();

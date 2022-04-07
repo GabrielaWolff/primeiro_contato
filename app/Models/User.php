@@ -42,16 +42,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function getUsers(string|null $search = null)
+    public function getUsers($search = null)
     {
-        $users = $this->where(function ($query) use ($search){
-            if ($search){
-            $query->where('email',$search);
-            $query->orWhere('name', 'LIKE', "%($search)%");
-
-        }
-        ->with('comments')
-        })->paginate(15);
+        $users = $this->where(function ($query) use ($search) {
+            if ($search) {
+                $query->where('email', $search);
+                $query->orWhere('name', 'LIKE', "%{$search}%");
+            }
+        })
+            ->with('comments')
+            ->paginate(15);
 
         return $users;
     }
@@ -60,5 +60,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class);
     }
-
 }
