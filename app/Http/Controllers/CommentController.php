@@ -3,83 +3,76 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    protected $model;
+    protected $user;
+
+    public function _construct(Comment $comment, User $user)
     {
-        //
+        $this->model = $comment;
+        $this->user = $user;
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function index($userId)
     {
-        //
+        if(!$user = $this->user->find($userId)){
+            return redirect()->back();
+        }
+
+        $user->comments()->get();
+
+        return view('users.comments.index', compact('user','comments'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function create($userId)
     {
-        //
+        if(!$user = $this->user->find($userId)){
+            return redirect()->back();
+        }
+
+        return view('users.comments.create', compact('user'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Comment $comment)
+    public function store(Request $request, $userId)
     {
-        //
+        if(!$user = $this->user->find($userId)){
+            return redirect()->back();
+        }
+
+        $user->comments()->create([
+            'body' => $request->body,
+            'visible' => isset($request->visible)
+        ]);
+
+        return redirect()->route('comments.index', $user->id);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Comment $comment)
+    public function edit($userId, $id)
     {
-        //
+        if(!$comment = $this->comment->find($id)){
+            return redirect()->back();
+        }
+        $user = $comment->user;
+
+        return view('users.comments.edit', compact('user','comment'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Comment $comment)
+    public function update(Request $request, $id)
     {
-        //
-    }
+        if(!$comment = $this->comment->find($id)){
+            return redirect()->back();
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Comment $comment)
-    {
-        //
+        $comment->update([
+            'body' => $request->body,
+            'visible' => isset($request->visible)
+        ]);
+
+        return redirect()->route('comments.index', $comment->user_id);
     }
 }
