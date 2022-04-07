@@ -3,7 +3,7 @@
 @section('title','Listagem dos Usuários')
 
 @section('content')
-<h1>
+<h1 class="text-2x1 font-semibold leading-tigh py-2">
     Listagem dos Usuários
     (<a href="{{ route('users.create') }}">+</a>)
 </h1>
