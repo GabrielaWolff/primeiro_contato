@@ -9,7 +9,7 @@
 @include('users.includes.validation-forms')
 
 
-<form action="{{ route('users.update', $user->id) }}" method="post">
+<form action="{{ route('users.update', $user->id) }}" method="post" enctype="multipart/form-data">
    @method('PUT')
    @include('users.partials.form')
 </form>

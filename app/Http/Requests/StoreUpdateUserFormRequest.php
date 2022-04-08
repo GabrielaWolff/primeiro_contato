@@ -37,7 +37,12 @@ class StoreUpdateUserFormRequest extends FormRequest
                 'min:6',
                 'max:15'
 
-            ]
+            ],
+            'image' => [
+                'nullable',
+                'image',
+                'max:2048',
+            ],
         ];
 
         if ($this->method('PUT')) {

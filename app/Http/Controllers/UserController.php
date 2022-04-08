@@ -37,17 +37,18 @@ class UserController extends Controller
         $data = $request->all();
         $data['password'] = bcrypt($request->password);
 
+        if ($request->image) {
+
+            $data['image'] = $request->image->store('users');
+            //$extension = $request->image->getClientOriginalExtension();
+            // $data['image'] = $request->image->storeAs('users', now() . ".{$extension}");
+        }
 
         $user = User::create($data);
 
         return redirect()->route('users.index');
-
-        // $user = new User;
-        // $user->name = $request->name;
-        // $user->email = $request->email;
-        // $user->password = $request->password;
-        // $user->safe();
     }
+
     public function create()
     {
         return view('users.create');
@@ -68,6 +69,14 @@ class UserController extends Controller
         $data = $request->only('name', 'email');
         if ($request->password)
             $data['password'] = bcrypt($request->password);
+
+        if ($request->image) {
+            if ($user->image && Storage::exists($user->image)){
+                Storage::delete($user->image);
+            }
+
+            $data['image'] = $request->image->store('users');
+        }
 
         $user->update($data);
 
