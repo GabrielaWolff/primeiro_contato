@@ -19,7 +19,7 @@
                 @if ($user->image)
                     <img src="{{ url("storage/{$user->image}") }}" alt="{{ $user->name }}" class="object-cover w-20">
                 @else
-                    <img src="{{ url("images/favicon.ico") }}" alt="{{ $user->name }}" class="object-cover w-20">
+                    <img src="{{ url("images/favicon.ico") }}" alt="{{ $user->name }}" class="object-cover w-ppp20">
                 @endif
                 {{ $user->name }}
                 {{ $user->email }}

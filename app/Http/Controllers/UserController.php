@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreUpdateUserFormRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -63,13 +64,13 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
-        if (!$user = $this->model->find($id))
+        if (!$user = $this->model->find($id)){
             return redirect()->route('users.index');
-
+        }
         $data = $request->only('name', 'email');
-        if ($request->password)
+        if ($request->password){
             $data['password'] = bcrypt($request->password);
-
+        }
         if ($request->image) {
             if ($user->image && Storage::exists($user->image)){
                 Storage::delete($user->image);
