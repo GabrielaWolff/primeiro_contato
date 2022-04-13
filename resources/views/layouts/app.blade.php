@@ -13,6 +13,10 @@
 <body class="bg-gray-50">
 
     <div class="container mx-auto px-4 py-8">
+        <form action="{{ route ('logout') }}" method="post">
+            @csrf
+            <button type="submit">Logout</button>
+        </form>
         @yield('content')
     </div>
 
