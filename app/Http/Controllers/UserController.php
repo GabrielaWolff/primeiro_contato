@@ -41,8 +41,6 @@ class UserController extends Controller
         if ($request->image) {
 
             $data['image'] = $request->image->store('users');
-            //$extension = $request->image->getClientOriginalExtension();
-            // $data['image'] = $request->image->storeAs('users', now() . ".{$extension}");
         }
 
         $user = User::create($data);
