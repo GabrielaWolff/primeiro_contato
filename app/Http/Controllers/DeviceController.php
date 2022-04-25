@@ -59,7 +59,7 @@ class DeviceController extends Controller
         );
         $validator = Validator::make($req->all(), $rules);
         if ($validator->fails()) {
-            return response()->json($validator->errors(),401);
+            return response()->json($validator->errors(), 401);
         } else {
             $device = new Device;
             $device->name->req->name;
@@ -70,6 +70,6 @@ class DeviceController extends Controller
             } else {
                 return ["Result" => "Operation failed"];
             }
-        }        }
+        }
     }
 }
