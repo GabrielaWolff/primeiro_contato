@@ -40,6 +40,7 @@ class UserController extends Controller
 
         if ($request->image) {
 
+
             $data['image'] = $request->image->store('users');
         }
 
