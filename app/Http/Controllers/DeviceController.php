@@ -4,9 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Device;
-use Dotenv\Validator as DotenvValidator;
-use Illuminate\Contracts\Validation\Validator as ContractsValidationValidator;
-use Illuminate\Validation\Validator as ValidationValidator;
 use Validator;
 
 class DeviceController extends Controller
