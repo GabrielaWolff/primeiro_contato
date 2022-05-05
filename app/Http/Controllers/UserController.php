@@ -21,16 +21,13 @@ class UserController extends Controller
             ->getUsers(
                 $request->search ?? ''
             );
-        return view('users.index', compact('users'));
+        return response()->json($users, 200);
     }
 
     public function show($id)
     {
-        $user = $this->model->find($id);
-        if (!$user)
-            return redirect()->route('users.index');
-
-        return view('users.show', compact('user'));
+        $users = $this->model->find($id);
+        return response()->json($users, 200);
     }
 
     public function store(StoreUpdateUserFormRequest $request)
@@ -45,7 +42,8 @@ class UserController extends Controller
 
         $user = User::create($data);
 
-        return redirect()->route('users.index');
+
+        return $this->index($request);
     }
 
     public function create()
@@ -62,15 +60,15 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
-        if (!$user = $this->model->find($id)){
+        if (!$user = $this->model->find($id)) {
             return redirect()->route('users.index');
         }
         $data = $request->only('name', 'email');
-        if ($request->password){
+        if ($request->password) {
             $data['password'] = bcrypt($request->password);
         }
         if ($request->image) {
-            if ($user->image && Storage::exists($user->image)){
+            if ($user->image && Storage::exists($user->image)) {
                 Storage::delete($user->image);
             }
 
@@ -79,16 +77,20 @@ class UserController extends Controller
 
         $user->update($data);
 
-        return redirect()->route('users.index');
+        return response()->json($user, 200);
     }
 
-    public function destroy($id)
+    public function delete($id)
     {
-        if (!$user = $this->model->find($id))
-            return redirect()->route('users.index');
+
+        if (!$user = $this->model->find($id)) {
+            return response()->json([
+                'error' => 'Não encontrado!'
+            ], 404);
+        }
 
         $user->delete();
 
-        return redirect()->route('users.index');
+        return response()->json([], 204);
     }
 }
