@@ -15,8 +15,8 @@ class ArcticleFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'slug' => $this->faker->????,
-            'order' => ????,
+            'slug' => $this->faker->name(),
+            'order' => $this->faker->number(),
         ];
     }
 }

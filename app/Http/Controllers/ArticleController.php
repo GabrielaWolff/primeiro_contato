@@ -40,7 +40,7 @@ class ArticleController extends Controller
             $data['image'] = $request->image->store('articles');
         }
 
-        $user = User::create($data);
+        $user = Article::create($data);
 
 
         return $this->index($request);
