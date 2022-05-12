@@ -2,12 +2,11 @@
 
 namespace Database\Factories;
 
-use App\Models\Article;
+
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ArcticleFactory extends Factory
+class ArticleFactory extends Factory
 {
-    protected $model = Article::class;
     /**
      * Define the model's default state.
      *
@@ -16,9 +15,9 @@ class ArcticleFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name(),
-            'slug' => $this->faker->name(),
-            'order' => $this->faker->number(),
+		'name' => $this->faker->name,
+		'slug' => $this->faker->slug(),
+		'order' => $this->faker->randomNumber()
         ];
     }
 }
