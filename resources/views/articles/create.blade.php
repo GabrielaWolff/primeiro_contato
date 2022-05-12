@@ -3,12 +3,12 @@
 @section('title','Novo Usuário')
 
 @section('content')
-<h1>Novo Usuário</h1>
+<h1>Novo Artigo</h1>
 
-@include('users.includes.validation-forms')
+@include('articles.includes.validation-forms')
 
-<form action={{ route('users.store') }} method="post" enctype="multipart/form-data">
+<form action={{ route('articles.store') }} method="post" enctype="multipart/form-data">
 @csrf
-    @include('users.partials.form')
+    @include('articles.partials.form')
 </form>
 @endsection
