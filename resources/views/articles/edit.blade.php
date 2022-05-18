@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
-@section('title',"Editar o Usuário {$user->name}")
+@section('title',"Editar o Artigo {$article->name}")
 
 @section('content')
-<h1>Editar o Usuário {{ $user->name }}</h1>
+<h1>Editar o Artigo {{ $article->name }}</h1>
 
 
-@include('users.includes.validation-forms')
+@include('articles.includes.validation-forms')
 
 
-<form action="{{ route('users.update', $user->id) }}" method="post" enctype="multipart/form-data">
+<form action="{{ route('articles.update', $article->id) }}" method="post" enctype="multipart/form-data">
    @method('PUT')
    @include('users.partials.form')
 </form>

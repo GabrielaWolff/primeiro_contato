@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUpdateArticleFormRequest;
 use App\Http\Requests\StoreUpdateUserFormRequest;
 use App\Models\Article;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class ArticleController extends Controller
     {
         $articles = $this->model
             ->get(
-                $request->search ?? ''
+
             );
         return response()->json($articles, 200);
     }
@@ -30,19 +31,13 @@ class ArticleController extends Controller
         return response()->json($articles, 200);
     }
 
-    public function store(StoreUpdateUserFormRequest $request)
+    public function store(StoreUpdateArticleFormRequest $request)
     {
         $data = $request->all();
-        $data['password'] = bcrypt($request->password);
 
-        if ($request->image) {
+	$article = Article::create($data);
 
-            $data['image'] = $request->image->store('articles');
-        }
-        $article = Article::create($data);
-
-
-        return $this->index($request);
+        return response()->json($this->index($request), 201);
     }
 
     public function create()

@@ -16,9 +16,42 @@ class ArticleTest extends TestCase
      */
     public function test_index_article_return_200()
     {
-       	$article = Article::factory()->make();
-	dd($article);
-        // $response = $this->getJson('api/articles');
-        // $response->assertStatus(200);
+       //	$article = Article::factory()->make();
+	//dd($article);
+        $response = $this->getJson('api/articles');
+        $response->assertStatus(200);
+    }
+
+    public function test_update_article_return_200()
+    {
+        $article = Article::factory()->create();
+        $response = $this->put("api/articles/{$article->id}", $article->toArray());
+        $response->assertStatus(200);
+    }
+
+
+    public function test_store_article_return_201()
+    {
+        $payload = Article::factory()->make([])->toArray();
+        $response = $this->post('api/articles', $payload);
+	$response->assertStatus(201);
+        //$this->assertDatabaseHas('articles', [
+
+        //]);
+    }
+
+    public function test_show_article_return_200()
+    {
+        $article = Article::factory()->create();
+        $response = $this->getJson("api/articles/{$article->id}");
+        $response->assertStatus(200);
+    }
+
+    public function test_delete_article_return_204()
+    {
+        $article = Article::factory()->create();
+        $response = $this->delete("api/articles/{$article->id}");
+        $response->assertStatus(204);
+
     }
 }

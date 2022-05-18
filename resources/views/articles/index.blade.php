@@ -1,37 +1,31 @@
 @extends('layouts.app')
 
-@section('title', 'Listagem dos Usuários')
+@section('title', 'Listagem dos Artigos')
 
 @section('content')
     <h1 class="text-2x1 font-semibold leading-tigh py-2">
-        Listagem dos Usuários
-        (<a href="{{ route('users.create') }}">+</a>)
+        Listagem dos Artigos
+        (<a href="{{ route('articles.create') }}">+</a>)
     </h1>
 
-    <form action="{{ route('users.index') }}" method="get">
+    <form action="{{ route('articles.index') }}" method="get">
         <input type="text" name="search" placeholder="Pesquisar">
         <button>Pesquisar</button>
     </form>
 
     <ul>
-        @foreach ($users as $user)
+        @foreach ($articles as $article)
             <li>
-                @if ($user->image)
-                    <img src="{{ url("storage/{$user->image}") }}" alt="{{ $user->name }}" class="object-cover w-20">
-                @else
-                    <img src="{{ url("images/favicon.ico") }}" alt="{{ $user->name }}" class="object-cover w-ppp20">
-                @endif
-                {{ $user->name }}
-                {{ $user->email }}
-                | <a href="{{ route('users.edit', $user->id) }}">Editar</a>
-                | <a href="{{ route('users.show', $user->id) }}">Detalhes</a>
-                | <a href="{{ route('comments.index', $user->id) }}">Anotações({{ $user->comments->count() }})</a>
+                {{ $article->name }}
+                | <a href="{{ route('articles.edit', $article->id) }}">Editar</a>
+                | <a href="{{ route('articles.show', $article->id) }}">Detalhes</a>
+                | <a href="{{ route('comments.index', $article->id) }}">Anotações({{ $article->comments->count() }})</a>
 
             </li>
         @endforeach
     </ul>
     <div>
-        {{ $users->appends([
+        {{ $articles->appends([
                 'search' => request()->get('search', ''),
             ])->links() }}
     </div>
