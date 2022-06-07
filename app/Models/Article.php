@@ -22,7 +22,7 @@ class Article extends Model
 
 
 
-    public function Users()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }

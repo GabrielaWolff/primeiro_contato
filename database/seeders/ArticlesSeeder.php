@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Article;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class ArticlesSeeder extends Seeder
@@ -14,6 +15,9 @@ class ArticlesSeeder extends Seeder
      */
     public function run()
     {
-        Article::factory()->count(10)->create();
+        $user = User::first();
+        Article::factory()->count(10)->create([
+            'user_id'=> $user->id
+        ]);
     }
 }

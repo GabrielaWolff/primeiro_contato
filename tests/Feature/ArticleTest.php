@@ -16,8 +16,6 @@ class ArticleTest extends TestCase
      */
     public function test_index_article_return_200()
     {
-       //	$article = Article::factory()->make();
-	//dd($article);
         $response = $this->getJson('api/articles');
         $response->assertStatus(200);
     }
@@ -35,9 +33,7 @@ class ArticleTest extends TestCase
         $payload = Article::factory()->make([])->toArray();
         $response = $this->post('api/articles', $payload);
 	$response->assertStatus(201);
-        //$this->assertDatabaseHas('articles', [
 
-        //]);
     }
 
     public function test_show_article_return_200()
@@ -52,6 +48,5 @@ class ArticleTest extends TestCase
         $article = Article::factory()->create();
         $response = $this->delete("api/articles/{$article->id}");
         $response->assertStatus(204);
-
     }
 }
