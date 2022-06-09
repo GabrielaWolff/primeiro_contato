@@ -37,7 +37,7 @@ Route::delete('/article/{id}', [ArticleController::class, 'delete'])->name('arti
 Route::get('/articleusers', [ArticleUserController::class, 'index'])->name('articleusers.index');
 
 Route::get('/userarticles', [UserArticleController::class, 'index'])->name('userarticles.index');
-Route::get('/userarticles/{id}', [UserArticleController::class, 'show'])->name('userarticles.show');
+Route::get('/userarticles/{id}/{articleId}', [UserArticleController::class, 'show'])->name('userarticles.show');
 Route::post('/userarticles/{id}', [UserArticleController::class, 'store'])->name('userarticles.store');
 Route::put('/userarticles/{id}/{articleId}', [UserArticleController::class, 'update'])->name('userarticles.update');
 Route::delete('/userarticles/{id}/{articleId}', [UserArticleController::class, 'delete'])->name('userarticles.delete');
