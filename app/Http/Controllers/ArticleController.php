@@ -18,11 +18,8 @@ class ArticleController extends Controller
     }
     public function index(Request $request)
     {
-        $articles = $this->model
-            ->get(
-
-            );
-        return response()->json($articles, 200);
+         
+        return response()->json(Article::all(), 200);
     }
 
     public function show($id)

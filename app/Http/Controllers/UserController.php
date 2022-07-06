@@ -17,11 +17,7 @@ class UserController extends Controller
     }
     public function index(Request $request)
     {
-        $users = $this->model
-            ->getUsers(
-                $request->search ?? ''
-            );
-        return response()->json($users, 200);
+        return response()->json(User::all(), 200);
     }
 
     public function show($id)

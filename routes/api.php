@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ArticleUserController;
 use App\Http\Controllers\UserArticleController;
@@ -19,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return "teste";
+    return "teste ok";
 });
 
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
@@ -42,7 +43,11 @@ Route::post('/userarticles/{id}', [UserArticleController::class, 'store'])->name
 Route::put('/userarticles/{id}/{articleId}', [UserArticleController::class, 'update'])->name('userarticles.update');
 Route::delete('/userarticles/{id}/{articleId}', [UserArticleController::class, 'delete'])->name('userarticles.delete');
 
-
+Route::get('/comments', [CommentController::class, 'index'])->name('comments.index');
+Route::post('/comments', [CommentController::class, 'store'])->name('comments.store'); //escreve no banco
+Route::put('/comment/{id}', [CommentController::class, 'update'])->name('comments.update');
+Route::get('/comment/{id}', [CommentController::class, 'show'])->name('comments.show');
+Route::delete('/comment/{id}', [CommentController::class, 'delete'])->name('comments.delete');
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

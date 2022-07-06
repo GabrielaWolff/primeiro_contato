@@ -108,6 +108,5 @@ services:
     environment:
       PHP_MEMORY_LIMIT: 512M
     networks:
-      - php
       - mysql
       - phpunit

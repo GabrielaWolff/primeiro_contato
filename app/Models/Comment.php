@@ -10,6 +10,7 @@ class Comment extends Model
     use HasFactory;
 
     protected $fillable = [
+        'article_id',
         'body',
         'visible'
     ];
@@ -17,7 +18,7 @@ class Comment extends Model
         'visible' => 'boolean'
     ];
 
-    public function user()
+    public function article()
     {
         return $this->belongsTo(User::class);
     }

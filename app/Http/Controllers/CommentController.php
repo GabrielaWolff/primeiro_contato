@@ -2,79 +2,58 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUpdateCommentRequest;
 use App\Models\Comment;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    protected $model;
-    protected $user;
-
     public function _construct(Comment $comment, User $user)
     {
         $this->model = $comment;
-        $this->user = $user;
 
     }
 
-    public function index(Request $request, $userId)
+    public function index(Request $request)
     {
-        if(!$user = $this->user->find($userId)){
-            return redirect()->back();
-        }
 
-        $user->comments()
-                    ->where('body','LIKE',"%{$request->search}%")
-                    ->get();
-
-        return view('users.comments.index', compact('user','comments'));
+        return response()->json(Comment::all(), 200);
     }
 
-    public function create($userId)
+    public function update(Request $request, $id)
+    { 
+        $comment = Comment::find($id);
+        $data = $request->only('body', 'visible'); 
+  
+        $comment->update($data);
+        
+        return response()->json($comment,200);
+    }
+
+    public function store(StoreUpdateCommentRequest $request)
     {
-        if(!$user = $this->user->find($userId)){
-            return redirect()->back();
-        }
+        $data = $request->all();
+        $comment = Comment::create($data);
 
-        return view('users.comments.create', compact('user'));
+        return response()->json($comment, 201);
     }
 
-    public function store(StoreUpdateCommentRequest $request, $userId)
+    public function show($id)
     {
-        if(!$user = $this->user->find($userId)){
-            return redirect()->back();
-        }
+        $comments = Comment::find($id);
+        return response()->json($comments, 200);
+    } 
 
-        $user->comments()->create([
-            'body' => $request->body,
-            'visible' => isset($request->visible)
-        ]);
-
-        return redirect()->route('comments.index', $user->id);
-    }
-
-    public function edit($userId, $id)
+    public function delete($id)
     {
-        if(!$comment = $this->comment->find($id)){
-            return redirect()->back();
-        }
-        $user = $comment->user;
+ 
+        $comment = Comment::find($id);
 
-        return view('users.comments.edit', compact('user','comment'));
+        $comment->delete();
+
+        return response()->json($comment, 204);
     }
 
-    public function update(StoreUpdateCommentRequest $request, $id)
-    {
-        if(!$comment = $this->comment->find($id)){
-            return redirect()->back();
-        }
 
-        $comment->update([
-            'body' => $request->body,
-            'visible' => isset($request->visible)
-        ]);
-
-        return redirect()->route('comments.index', $comment->user_id);
-    }
 }
