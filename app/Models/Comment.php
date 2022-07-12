@@ -20,6 +20,6 @@ class Comment extends Model
 
     public function article()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(User::class);
     }
 }

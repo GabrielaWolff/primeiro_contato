@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArticleCommentController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ArticleUserController;
@@ -48,6 +49,12 @@ Route::post('/comments', [CommentController::class, 'store'])->name('comments.st
 Route::put('/comment/{id}', [CommentController::class, 'update'])->name('comments.update');
 Route::get('/comment/{id}', [CommentController::class, 'show'])->name('comments.show');
 Route::delete('/comment/{id}', [CommentController::class, 'delete'])->name('comments.delete');
+
+Route::get('/articlecomments', [ArticleCommentController::class, 'index'])->name('articlecomments.index');
+Route::get('/articlecomments/{id}/{commentId}', [ArticleCommentController::class, 'show'])->name('articlecomments.show');
+Route::post('/articlecomments/{id}', [ArticleCommentController::class, 'store'])->name('articlecomments.store');
+Route::put('/articlecomments/{id}/{commentId}', [ArticleCommentController::class, 'update'])->name('articlecomments.update');
+Route::delete('/articlecomments/{id}/{commentId}', [ArticleCommentController::class, 'delete'])->name('articlecomments.delete');
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

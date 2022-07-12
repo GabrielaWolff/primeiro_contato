@@ -28,60 +28,34 @@ class ArticleController extends Controller
         return response()->json($articles, 200);
     }
 
-    public function store(StoreUpdateArticleFormRequest $request)
+    public function store(Request $request)
     {
         $data = $request->all();
-
+        
 	$article = Article::create($data);
-
         return response()->json($this->index($request), 201);
     }
-
-    public function create()
-    {
-        return view('articles.create');
-    }
-
-    public function edit($id)
-    {
-        if (!$user = $this->model->find($id))
-            return redirect()->route('articles.index');
-        return view('articles.edit', compact('user'));
-    }
+ 
+ 
 
     public function update(Request $request, $id)
     {
-        if (!$article = $this->model->find($id)) {
-            return redirect()->route('articles.index');
-        }
-        $data = $request->only('name', 'email');
-        if ($request->password) {
-            $data['password'] = bcrypt($request->password);
-        }
-        if ($request->image) {
-            if ($article->image && Storage::exists($article->image)) {
-                Storage::delete($article->image);
-            }
-
-            $data['image'] = $request->image->store('users');
-        }
-
+        
+        $article = Article::find($id);
+        $data = $request->only('name', 'slug','order'); 
+  
         $article->update($data);
-
-        return response()->json($article, 200);
+        
+        return response()->json($article,200); 
     }
 
     public function delete($id)
     {
 
-        if (!$article = $this->model->find($id)) {
-            return response()->json([
-                'error' => 'Não encontrado!'
-            ], 404);
-        }
+        $article = Article::find($id);
 
         $article->delete();
 
-        return response()->json([], 204);
+        return response()->json($article, 204);
     }
 }

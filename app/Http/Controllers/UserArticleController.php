@@ -19,10 +19,12 @@ class UserArticleController extends Controller
      * Returns a single user with a list of articles
      * that user has
      */
-    public function show($id)
+    public function show($id, $articleId)
     {
-        $user = User::with('articles')->find($id);
-        return response()->json($user, 200);
+        $user = User::find($id);
+        $article = $user->articles()->where('id', $articleId)->first();
+        
+        return response()->json($article, 200);
     }
 
     /**
