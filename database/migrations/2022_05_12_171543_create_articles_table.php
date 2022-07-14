@@ -15,7 +15,7 @@ class CreateArticlesTable extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
-            //$table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('user_id');
             $table->string('name');
 	        $table->string('slug');
 	        $table->unsignedInteger('order');

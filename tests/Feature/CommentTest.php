@@ -22,8 +22,38 @@ class CommentTest extends TestCase
 
     public function test_update_comment_return_200()
     {
-        $comment = Comment::factory()->create();
-        $response = $this->put("api/comments/{$comment->id}", $comment->toArray());
+        $comment = Comment::factory()->create([
+            'article_id' => 1
+        ]);
+        $response = $this->put("api/comment/{$comment->id}", $comment->toArray());
         $response->assertStatus(200);
+    }
+
+    public function test_store_comment_return_201()
+    {
+        $payload = Comment::factory()->make([
+            'article_id' => 1
+        ])->toArray();
+        $response = $this->post('api/comments', $payload);
+	    $response->assertStatus(201);
+
+    }
+
+    public function test_show_comment_return_200()
+    {
+        $comment = Comment::factory()->create([
+            'article_id' => 1
+        ]);
+        $response = $this->getJson("api/comment/{$comment->id}");
+        $response->assertStatus(200);
+    }
+
+    public function test_delete_comment_return_204()
+    {
+        $comment = Comment::factory()->create([
+            'article_id' => 1
+        ]);
+        $response = $this->delete("api/comment/{$comment->id}");
+        $response->assertStatus(204);
     }
 }

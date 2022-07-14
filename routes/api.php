@@ -43,7 +43,7 @@ Route::get('/userarticles/{id}/{articleId}', [UserArticleController::class, 'sho
 Route::post('/userarticles/{id}', [UserArticleController::class, 'store'])->name('userarticles.store');
 Route::put('/userarticles/{id}/{articleId}', [UserArticleController::class, 'update'])->name('userarticles.update');
 Route::delete('/userarticles/{id}/{articleId}', [UserArticleController::class, 'delete'])->name('userarticles.delete');
-
+     
 Route::get('/comments', [CommentController::class, 'index'])->name('comments.index');
 Route::post('/comments', [CommentController::class, 'store'])->name('comments.store'); //escreve no banco
 Route::put('/comment/{id}', [CommentController::class, 'update'])->name('comments.update');

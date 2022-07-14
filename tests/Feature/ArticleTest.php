@@ -23,7 +23,7 @@ class ArticleTest extends TestCase
     public function test_update_article_return_200()
     {
         $article = Article::factory()->create();
-        $response = $this->put("api/articles/{$article->id}", $article->toArray());
+        $response = $this->put("api/article/{$article->id}", $article->toArray());
         $response->assertStatus(200);
     }
 
@@ -46,7 +46,7 @@ class ArticleTest extends TestCase
     public function test_delete_article_return_204()
     {
         $article = Article::factory()->create();
-        $response = $this->delete("api/articles/{$article->id}");
+        $response = $this->delete("api/article/{$article->id}");
         $response->assertStatus(204);
     }
 }

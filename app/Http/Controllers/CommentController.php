@@ -25,7 +25,7 @@ class CommentController extends Controller
     { 
         $comment = Comment::find($id);
         $data = $request->only('body', 'visible'); 
-  
+        
         $comment->update($data);
         
         return response()->json($comment,200);

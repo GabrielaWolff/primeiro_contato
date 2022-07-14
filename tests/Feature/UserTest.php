@@ -55,7 +55,7 @@ class UserTest extends TestCase
             'password' => Str::random(10), // password
 
         ];
-        $response = $this->put("api/users/{$user->id}", $payload);
+        $response = $this->put("api/user/{$user->id}", $payload);
         $response->assertStatus(200);
         $this->assertDatabaseHas('users', [
             'email' => $email,
@@ -83,7 +83,7 @@ class UserTest extends TestCase
             'email' => $email
         ]);
 
-        $response = $this->delete("api/users/{$user->id}");
+        $response = $this->delete("api/user/{$user->id}");
         $response->assertStatus(204);
         $this->assertDatabaseMissing('users', [
             'email' => $email,
