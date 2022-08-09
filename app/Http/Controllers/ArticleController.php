@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreUpdateArticleFormRequest;
-use App\Http\Requests\StoreUpdateUserFormRequest;
+use App\Http\Requests\StoreArticleRequest;
+use App\Http\Requests\UpdateArticleRequest;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -28,17 +28,16 @@ class ArticleController extends Controller
         return response()->json($articles, 200);
     }
 
-    public function store(Request $request)
+    public function store(StoreArticleRequest $request)
     {
-        $data = $request->all();
         
-	$article = Article::create($data);
+        $data = $request->validated();
+        //return $data;
+	    $article = Article::create($data);
         return response()->json($this->index($request), 201);
     }
- 
- 
-
-    public function update(Request $request, $id)
+  
+    public function update(UpdateArticleRequest $request, $id)
     {
         
         $article = Article::find($id);

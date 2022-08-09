@@ -88,5 +88,20 @@ class UserTest extends TestCase
         $this->assertDatabaseMissing('users', [
             'email' => $email,
         ]);
+
+    }
+
+    public function test_store_user_with_missing_data_return_422()
+    {
+        $payload = []; 
+        $request = $this->post('api/articles', $payload);
+        $request->assertStatus(422);
+    }
+
+    public function test_update_user_with_missing_data_return_422()
+    {
+        $payload = []; 
+        $request = $this->put('api/article/{id}', $payload);
+        $request->assertStatus(422);
     }
 }

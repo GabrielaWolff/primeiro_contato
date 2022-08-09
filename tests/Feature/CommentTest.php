@@ -56,4 +56,18 @@ class CommentTest extends TestCase
         $response = $this->delete("api/comment/{$comment->id}");
         $response->assertStatus(204);
     }
+
+    public function test_store_comment_with_missing_data_return_422()
+    {
+        $payload = []; 
+        $request = $this->post('api/articles', $payload);
+        $request->assertStatus(422);
+    }
+
+    public function test_update_comment_with_missing_data_return_422()
+    {
+        $payload = []; 
+        $request = $this->put('api/article/{id}', $payload);
+        $request->assertStatus(422);
+    }
 }

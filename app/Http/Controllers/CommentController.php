@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreUpdateCommentRequest;
+use App\Http\Requests\StoreCommentRequest;
+use App\Http\Requests\UpdateCommentRequest;
 use App\Models\Comment;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -17,11 +18,10 @@ class CommentController extends Controller
 
     public function index(Request $request)
     {
-
         return response()->json(Comment::all(), 200);
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateCommentRequest $request, $id)
     { 
         $comment = Comment::find($id);
         $data = $request->only('body', 'visible'); 
@@ -31,7 +31,7 @@ class CommentController extends Controller
         return response()->json($comment,200);
     }
 
-    public function store(StoreUpdateCommentRequest $request)
+    public function store(StoreCommentRequest $request)
     {
         $data = $request->all();
         $comment = Comment::create($data);

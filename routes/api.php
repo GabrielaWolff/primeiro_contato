@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return "teste ok";
 });
+Route::group(['middleware' => ['json.response']], function () {
 
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::post('/users',[UserController::class,'store'])->name('users.store');
@@ -55,6 +56,7 @@ Route::get('/articlecomments/{id}/{commentId}', [ArticleCommentController::class
 Route::post('/articlecomments/{id}', [ArticleCommentController::class, 'store'])->name('articlecomments.store');
 Route::put('/articlecomments/{id}/{commentId}', [ArticleCommentController::class, 'update'])->name('articlecomments.update');
 Route::delete('/articlecomments/{id}/{commentId}', [ArticleCommentController::class, 'delete'])->name('articlecomments.delete');
+});
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
