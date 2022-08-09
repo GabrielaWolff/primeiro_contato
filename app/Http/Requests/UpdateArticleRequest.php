@@ -24,9 +24,8 @@ class UpdateArticleRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'slug' => 'required',
-            'order' => 'required'
-        ];
+            'name' => 'required','string', 'min:6', 'max:36',
+            'slug' => 'required', 'string', 'min:6', 'max:36',
+            'order' => 'required', 'integer'];
     }
 }

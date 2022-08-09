@@ -24,10 +24,10 @@ class StoreArticleRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id'=>'required',
-            'name' => 'required',
-            'slug' => 'required',
-            'order' => 'required'
+            'user_id'=>'required','integer','exists',
+            'name' => 'required','string', 'min:6', 'max:36',
+            'slug' => 'required', 'string', 'min:6', 'max:36',
+            'order' => 'required', 'integer'
         ];
     }
 }
