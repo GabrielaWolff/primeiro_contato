@@ -22,7 +22,7 @@ class CommentController extends Controller
     }
 
     public function update(UpdateCommentRequest $request, $id)
-    { 
+    {   
         $comment = Comment::find($id);
         $data = $request->only('body', 'visible'); 
         

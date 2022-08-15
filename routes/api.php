@@ -4,6 +4,7 @@ use App\Http\Controllers\ArticleCommentController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ArticleUserController;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserArticleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -56,6 +57,13 @@ Route::get('/articlecomments/{id}/{commentId}', [ArticleCommentController::class
 Route::post('/articlecomments/{id}', [ArticleCommentController::class, 'store'])->name('articlecomments.store');
 Route::put('/articlecomments/{id}/{commentId}', [ArticleCommentController::class, 'update'])->name('articlecomments.update');
 Route::delete('/articlecomments/{id}/{commentId}', [ArticleCommentController::class, 'delete'])->name('articlecomments.delete');
+
+Route::get('/tags', [TagController::class, 'index'])->name('tags.index');
+Route::post('/tags', [TagController::class, 'store'])->name('tags.store');
+Route::put('/tag/{id}', [TagController::class, 'update'])->name('tags.update');
+Route::get('/tag/{id}', [TagController::class, 'show'])->name('tags.show');
+Route::delete('/tag/{id}', [TagController::class, 'delete'])->name('tags.delete');
+
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
