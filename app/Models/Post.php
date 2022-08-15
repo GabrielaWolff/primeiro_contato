@@ -12,4 +12,9 @@ class Post extends Model
     protected $fillable = [
         'title', 'content'
     ];
+    
+    public function tags()
+    {
+        return $this->hasMany(Post::class);
+    }
 }
