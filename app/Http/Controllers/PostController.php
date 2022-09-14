@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 
-class Post extends Controller
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,37 +17,43 @@ class Post extends Controller
      */
     public function index(Request $request)
     {
-        return response()->json(Post::all(), 200);
+        $posts = Post::with('tags')->get(); 
+ 
+        return response()->json($posts, 200);
     }
 
     public function update(UpdatePostRequest $request, $id)
     {   
         $post = Post::find($id);
-        $data = $request->only('body', 'visible'); 
+        $data = $request->only('title', 'content','tags'); //ffiltra conteudo enviado pelo usuario
         
         $post->update($data);
+        $post->tags()->sync($data['tags']);
+
         
-        return response()->json($post,200);
+        return response()->json($this->show($id),200);
     }
 
     public function store(StorePostRequest $request)
     {
         $data = $request->all();
+ 
         $post = Post::create($data);
-
+        $post->tags()->attach($data['bananas']);  //cria relaçoes many to many. em post attach tags
         return response()->json($post, 201);
     }
 
     public function show($id)
     {
-        $post = Post::find($id);
+        $post = Post::with('tags')->where('id', $id)->first();  
+
         return response()->json($post, 200);
     } 
 
     public function delete($id)
     {
  
-        $post = Post::find($id);
+        $post = Post::find($id); //post recebe id de dentro do model //find = where id first
 
         $post->delete();
 

@@ -2,8 +2,9 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\Models\Article;
+use App\Models\User;
+use App\Models\Post;
 use Tests\TestCase;
 
 class PostTest extends TestCase
@@ -13,20 +14,66 @@ class PostTest extends TestCase
      *
      * @return void
      */
-    public function test_update()
+    public function test_index_post_return_200()
     {
-        $user = User::factory()->create(); //factory user
-        Passport::actingAs($user, ['api']); //set passport user
-
-        $post = Post::factory()->create(['user_id' => $user->id]); //factory kbarticle
-
-        $data = [
-
-        ];
-        $kb = Kb::where("id",$post->kb_id)->first();
-        $PostTestCase = new KbTestCase();
-        $PostTestCase->assignRoleUser($kb,$user,RoleEnum::GENERAL_ADMIN);
-        $this->putJson("/api/v1/kbs/article/$post->uuid", $data)
-        ->assertStatus(200);
+        $response = $this->getJson('api/posts');
+        $response->assertStatus(200);
     }
+
+    public function test_update_post_return_200()
+    {
+        $user = User::factory()->create();
+        $post = Post::factory()->create([
+            'user_id' => $user->id
+        ]);
+        $response = $this->put("api/post/{$post->id}", $post->toArray());
+        $response->assertStatus(200);
+    }
+
+    public function test_store_post_return_201()
+    {
+         $user = User::factory()->create();
+        $payload =  Post::factory()->make([
+            'user_id' => $user->id
+        ])->toArray();
+        $response = $this->post('api/posts', $payload);
+        $response->assertStatus(201);
+
+    }
+
+    public function test_show_post_return_200()
+    {
+        $user = User::factory()->create();
+        $post = Post::factory()->create([
+            'user_id' => $user->id
+        ]);
+        $response = $this->getJson("api/post/{$post->id}");
+        $response->assertStatus(200);
+    }
+
+    public function test_post_article_return_204()
+    {
+        $user = User::factory()->create();
+        $article = Article::factory()->create([
+            'user_id' => $user->id
+        ]);
+        $response = $this->delete("api/post/{$article->id}");
+        $response->assertStatus(204);
+    }
+
+    public function test_store_post_with_missing_data_return_422()
+    {
+        $payload = []; 
+        $request = $this->post('api/posts', $payload);
+        $request->assertStatus(422);
+    }
+
+    public function  test_update_post_with_missing_data_return_422()
+    {
+        $payload = []; 
+        $request = $this->put('api/post/{id}', $payload);
+        $request->assertStatus(422);
+    }  
 }
+
+

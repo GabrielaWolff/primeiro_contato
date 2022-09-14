@@ -4,7 +4,9 @@ use App\Http\Controllers\ArticleCommentController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ArticleUserController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\TagPostController;
 use App\Http\Controllers\UserArticleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -63,6 +65,14 @@ Route::post('/tags', [TagController::class, 'store'])->name('tags.store');
 Route::put('/tag/{id}', [TagController::class, 'update'])->name('tags.update');
 Route::get('/tag/{id}', [TagController::class, 'show'])->name('tags.show');
 Route::delete('/tag/{id}', [TagController::class, 'delete'])->name('tags.delete');
+
+Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+Route::put('/post/{id}', [PostController::class, 'update'])->name('posts.update');
+Route::get('/post/{id}', [PostController::class, 'show'])->name('posts.show');
+Route::delete('/post/{id}', [PostController::class, 'delete'])->name('posts.delete');
+
+Route::get('/tag/{id}/posts', [TagPostController::class, 'show'])->name('tagpost.show');
 
 });
 
