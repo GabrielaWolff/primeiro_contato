@@ -9,6 +9,7 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\TagPostController;
 use App\Http\Controllers\UserArticleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -73,6 +74,12 @@ Route::get('/post/{id}', [PostController::class, 'show'])->name('posts.show');
 Route::delete('/post/{id}', [PostController::class, 'delete'])->name('posts.delete');
 
 Route::get('/tag/{id}/posts', [TagPostController::class, 'show'])->name('tagpost.show');
+
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+Route::put('/product/{id}', [ProductController::class, 'update'])->name('products.update');
+Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
+Route::delete('/product/{id}', [ProductController::class, 'delete'])->name('products.delete');
 
 });
 

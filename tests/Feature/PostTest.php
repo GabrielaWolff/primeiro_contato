@@ -32,10 +32,14 @@ class PostTest extends TestCase
 
     public function test_store_post_return_201()
     {
+        $tag = Tag:
          $user = User::factory()->create();
         $payload =  Post::factory()->make([
-            'user_id' => $user->id
-        ])->toArray();
+            'user_id' => $user->id,
+            'title' =>  
+            'content' =>  ,
+            'tags'=>  //vetor de id que associa a post, associativo
+        ])->toArray(); //converte obj to array
         $response = $this->post('api/posts', $payload);
         $response->assertStatus(201);
 
