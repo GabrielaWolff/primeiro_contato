@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Models\Article;
 use App\Models\Comment;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -22,8 +24,13 @@ class CommentTest extends TestCase
 
     public function test_update_comment_return_200()
     {
+        $user = User::factory()->create();
+        $article = Article::factory()->create([  
+            'user_id' => $user->id,
+    ]);
         $comment = Comment::factory()->create([
-            'article_id' => 1
+            'user_id' => $user->id,
+            'article_id' => $article->id
         ]);
         $response = $this->put("api/comment/{$comment->id}", $comment->toArray());
         $response->assertStatus(200);
@@ -31,8 +38,13 @@ class CommentTest extends TestCase
 
     public function test_store_comment_return_201()
     {
+        $user = User::factory()->create();
+        $article = Article::factory()->create([
+            'user_id' => $user->id,
+        ]);
         $payload = Comment::factory()->make([
-            'article_id' => 1
+            'user_id' => $user->id,
+            'article_id' => $article->id
         ])->toArray();
         $response = $this->post('api/comments', $payload);
 	    $response->assertStatus(201);
@@ -41,8 +53,13 @@ class CommentTest extends TestCase
 
     public function test_show_comment_return_200()
     {
+        $user = User::factory()->create();
+        $article = Article::factory()->create([
+            'user_id' => $user->id,
+        ]);
         $comment = Comment::factory()->create([
-            'article_id' => 1
+            'user_id' => $user->id,
+            'article_id' => $article->id
         ]);
         $response = $this->getJson("api/comment/{$comment->id}");
         $response->assertStatus(200);
@@ -50,8 +67,13 @@ class CommentTest extends TestCase
 
     public function test_delete_comment_return_204()
     {
+        $user = User::factory()->create();
+        $article = Article::factory()->create([
+            'user_id' => $user->id,
+        ]);
         $comment = Comment::factory()->create([
-            'article_id' => 1
+            'user_id' => $user->id,
+            'article_id' => $article->id
         ]);
         $response = $this->delete("api/comment/{$comment->id}");
         $response->assertStatus(204);

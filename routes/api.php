@@ -10,6 +10,7 @@ use App\Http\Controllers\TagPostController;
 use App\Http\Controllers\UserArticleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StoreController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -78,8 +79,14 @@ Route::get('/tag/{id}/posts', [TagPostController::class, 'show'])->name('tagpost
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::post('/products', [ProductController::class, 'store'])->name('products.store');
 Route::put('/product/{id}', [ProductController::class, 'update'])->name('products.update');
-Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/product/{id}', [ProductController::class, 'show'])->name('products.show');
 Route::delete('/product/{id}', [ProductController::class, 'delete'])->name('products.delete');
+
+Route::get('/stores', [StoreController::class, 'index'])->name('stores.index');
+Route::post('/stores', [StoreController::class, 'store'])->name('stores.store');
+Route::put('/store/{id}', [StoreController::class, 'update'])->name('stores.update');
+Route::get('/store/{id}', [StoreController::class, 'show'])->name('stores.show');
+Route::delete('/store/{id}', [StoreController::class, 'delete'])->name('stores.delete');
 
 });
 

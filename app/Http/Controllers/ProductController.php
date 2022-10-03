@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
-use Illuminate\Http\Requests\StoreProductRequest;
-use Illuminate\Http\Requests\UpdateProductRequest;
 
 class ProductController extends Controller
 {
@@ -23,7 +23,7 @@ class ProductController extends Controller
     public function update(UpdateProductRequest $request, $id)
     {   
         $product = Product::find($id);
-        $data = $request->only('name', 'description','price','amount'); 
+        $data = $request->only('name', 'description','price','amount');
         
         $product->update($data);
         

@@ -10,6 +10,7 @@ class Comment extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'article_id',
         'body',
         'visible'
@@ -20,6 +21,12 @@ class Comment extends Model
 
     public function article()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(Article::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }

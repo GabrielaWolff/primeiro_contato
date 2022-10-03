@@ -11,7 +11,7 @@ networks:
 services:
   nginx:
     image: nginx:stable-alpine
-    container_name: nginx
+    container_name: app_contato_nginx
     ports:
       - "80:80"
       - "443:443"
@@ -28,7 +28,7 @@ services:
 
   mysql:
     image: mysql/mysql-server:8.0.23
-    container_name: mysql
+    container_name: app_contato_mysql
     restart: unless-stopped
     tty: true
     volumes:
@@ -51,7 +51,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: php
+    container_name: app_contato_php
     volumes:
       - ./:/var/www/html
     networks:
@@ -64,7 +64,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: composer
+    container_name: app_contato_composer
     volumes:
       - ./:/var/www/html
 
@@ -80,7 +80,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: artisan
+    container_name: app_contato_artisan
     volumes:
       - ./:/var/www/html
     depends_on:
@@ -98,7 +98,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: phpunit
+    container_name: app_contato_phpunit
     volumes:
       - ./:/var/www/html
     depends_on:
