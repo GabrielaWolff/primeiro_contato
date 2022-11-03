@@ -1,0 +1,795 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "My First API",
+        "version": "0.1"
+    },
+    "paths": {
+        "/api/articlecomments": {
+            "get": {
+                "tags": [
+                    "ArticleComment"
+                ],
+                "description": "Index of ArticleComment",
+                "operationId": "articlecommentIndex",
+                "responses": {
+                    "default": {
+                        "description": "Success: Array of Comments",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/CommentData"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/articlecomment/{id}": {
+            "delete": {
+                "tags": [
+                    "articlecomment"
+                ],
+                "description": "Delete ArticleComment",
+                "operationId": "articlecommentDelete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "commentid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/articles": {
+            "get": {
+                "tags": [
+                    "Article"
+                ],
+                "description": "Index of Article",
+                "operationId": "articleIndex",
+                "responses": {
+                    "default": {
+                        "description": "Success: Array of Articles",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ArticleData"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/article/{id}": {
+            "delete": {
+                "tags": [
+                    "article"
+                ],
+                "description": "Delete Article",
+                "operationId": "articleDelete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/articleusers": {
+            "get": {
+                "tags": [
+                    "ArticleUser"
+                ],
+                "description": "Index of ArticleUser",
+                "operationId": "articleuserIndex",
+                "responses": {
+                    "default": {
+                        "description": "Success: Array of Articles",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/UserData"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/comments": {
+            "get": {
+                "tags": [
+                    "Comments"
+                ],
+                "description": "Index of Comments",
+                "operationId": "commentsIndex",
+                "responses": {
+                    "default": {
+                        "description": "Success: Array of comments",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/CommentData"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "comment"
+                ],
+                "description": "Store comment",
+                "operationId": "comment",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "product_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "body",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "visible",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CommentStore"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CommentData"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable entity"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/comment/{id}": {
+            "put": {
+                "tags": [
+                    "Comment"
+                ],
+                "description": "Comment update",
+                "operationId": "commentUpdate",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CommentUpdateResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "comment"
+                ],
+                "description": "Delete Comments",
+                "operationId": "comments",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/posts": {
+            "get": {
+                "tags": [
+                    "Post"
+                ],
+                "description": "Index of Post",
+                "operationId": "postsIndex",
+                "responses": {
+                    "default": {
+                        "description": "Success: Array of Posts",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/PostData"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/post/{id}": {
+            "delete": {
+                "tags": [
+                    "post"
+                ],
+                "description": "Delete Post",
+                "operationId": "postDelete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/productcomments": {
+            "get": {
+                "tags": [
+                    "ProductComment"
+                ],
+                "description": "Index of ProductComments",
+                "operationId": "productcommentsIndex",
+                "responses": {
+                    "default": {
+                        "description": "Success: Array of Comments",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/CommentData"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/productcomment/{id}": {
+            "delete": {
+                "tags": [
+                    "productcomment"
+                ],
+                "description": "Delete ProductComment",
+                "operationId": "productcommentDelete",
+                "parameters": [
+                    {
+                        "name": "commentid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/products": {
+            "get": {
+                "tags": [
+                    "Product"
+                ],
+                "description": "Index of Products",
+                "operationId": "productsIndex",
+                "responses": {
+                    "default": {
+                        "description": "Success: Array of Products",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ProductData"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/product/{id}": {
+            "delete": {
+                "tags": [
+                    "product"
+                ],
+                "description": "Delete Product",
+                "operationId": "productDelete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/store/{id}": {
+            "delete": {
+                "tags": [
+                    "comment"
+                ],
+                "description": "Delete Store",
+                "operationId": "storeDelete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/tag/{id}": {
+            "delete": {
+                "tags": [
+                    "comment"
+                ],
+                "description": "Delete tag",
+                "operationId": "tagDelete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/userarticle/{id}": {
+            "delete": {
+                "tags": [
+                    "userarticle"
+                ],
+                "description": "Delete UserArticle",
+                "operationId": "userarticleDelete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "articleid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/users": {
+            "get": {
+                "tags": [
+                    "Comment"
+                ],
+                "description": "Index of Users",
+                "operationId": "usersIndex",
+                "responses": {
+                    "default": {
+                        "description": "Success: Array of users",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/UserData"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/{id}": {
+            "delete": {
+                "tags": [
+                    "user"
+                ],
+                "description": "Delete User",
+                "operationId": "userDelete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "ArticleData": {
+                "properties": {
+                    "user_id": {
+                        "description": "user_id",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "description": "name",
+                        "type": "string"
+                    },
+                    "slug": {
+                        "description": "slug",
+                        "type": "string"
+                    },
+                    "order": {
+                        "description": "order",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "CommentData": {
+                "properties": {
+                    "user_id": {
+                        "description": "user_id",
+                        "type": "integer"
+                    },
+                    "article_id": {
+                        "description": "article_id",
+                        "type": "integer"
+                    },
+                    "product_id": {
+                        "description": "product_id",
+                        "type": "integer"
+                    },
+                    "body": {
+                        "description": "body",
+                        "type": "string"
+                    },
+                    "visible": {
+                        "description": "visible",
+                        "type": "boolean"
+                    }
+                },
+                "type": "object"
+            },
+            "CommentIndex200Response": {
+                "properties": {
+                    "user_id": {
+                        "description": "user_id",
+                        "type": "integer"
+                    },
+                    "product_id": {
+                        "description": "product_id",
+                        "type": "integer"
+                    },
+                    "body": {
+                        "description": "body",
+                        "type": "string"
+                    },
+                    "visible": {
+                        "description": "visible",
+                        "type": "boolean"
+                    }
+                },
+                "type": "object"
+            },
+            "CommentStore": {},
+            "CommentUpdateResponse": {
+                "properties": {
+                    "product_id": {
+                        "description": "product_id",
+                        "type": "integer"
+                    },
+                    "user_id": {
+                        "description": "user_id",
+                        "type": "integer"
+                    },
+                    "article_id": {
+                        "description": "article_id",
+                        "type": "integer"
+                    },
+                    "body": {
+                        "description": "body",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "PostData": {
+                "properties": {
+                    "user_id": {
+                        "description": "user_id",
+                        "type": "integer"
+                    },
+                    "title": {
+                        "description": "title",
+                        "type": "string"
+                    },
+                    "content": {
+                        "description": "content",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "ProductData": {
+                "properties": {
+                    "store_id": {
+                        "description": "store_id",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "description": "name",
+                        "type": "string"
+                    },
+                    "description": {
+                        "description": "description",
+                        "type": "string"
+                    },
+                    "price": {
+                        "description": "price",
+                        "type": "number"
+                    },
+                    "amount": {
+                        "description": "amount",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "UserData": {
+                "properties": {
+                    "name": {
+                        "description": "name",
+                        "type": "string"
+                    },
+                    "email": {
+                        "description": "email",
+                        "type": "string"
+                    },
+                    "password": {
+                        "description": "password",
+                        "type": "string"
+                    },
+                    "image": {
+                        "description": "image",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "responses": {
+            "201": {
+                "description": "Successful created",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/CommentData"
+                        }
+                    }
+                }
+            },
+            "422": {
+                "description": "Unprocessable entity"
+            }
+        },
+        "parameters": {
+            "visible": {
+                "name": "visible",
+                "in": "query",
+                "required": true,
+                "schema": {
+                    "type": "boolean"
+                }
+            }
+        }
+    }
+}

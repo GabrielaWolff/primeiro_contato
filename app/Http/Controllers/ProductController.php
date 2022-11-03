@@ -15,6 +15,27 @@ class ProductController extends Controller
 
     }
 
+    /**
+     *
+     * @OA\Get(
+     *     path="/api/products",
+     *     operationId="productIndex",
+     *     tags={"Product"},
+     *     description="Index of Product",
+     *     @OA\Response(
+     *     response= "default",
+     *     description="Success: Array of Products",
+     *     @OA\MediaType(
+     *       mediaType="text/plain",
+     *         @OA\Schema(
+     *           type = "array",
+     *              @OA\Items(ref="#/components/schemas/ProductData"),
+     *           
+     *         )
+     *     )
+     *   )
+     * )
+     */
     public function index(Request $request)
     {
         return response()->json(Product::all(), 200);
@@ -44,6 +65,32 @@ class ProductController extends Controller
         return response()->json($products, 200);
     } 
 
+    /**
+     *
+     * @OA\Delete(
+     *     path="/api/product/{id}",
+     *     operationId="productDelete",
+     *     tags={"product"},
+     *     description="Delete Product",
+     *     security={{"bearer":{}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=204,
+     *         description="No content"
+     *     ),
+     * 
+     * )
+     * 
+     * Remove the specified resource from storage.
+     *
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
+     */
     public function delete($id)
     {
  

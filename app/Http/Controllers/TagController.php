@@ -44,6 +44,32 @@ class TagController extends Controller
         return response()->json($tag, 200);
     } 
 
+    /**
+     *
+     * @OA\Delete(
+     *     path="/api/tag/{id}",
+     *     operationId="tagDelete",
+     *     tags={"comment"},
+     *     description="Delete tag",
+     *     security={{"bearer":{}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=204,
+     *         description="No content"
+     *     ),
+     * 
+     * )
+     * 
+     * Remove the specified resource from storage.
+     *
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
+     */
     public function delete($id)
     {
  

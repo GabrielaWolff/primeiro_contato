@@ -65,12 +65,40 @@ class UserArticleController extends Controller
         return response()->json($article, 200);
 
     }
+    
     /**
-     * DELETE
-     * delete a Article that has to belong to the user with
-     * the id provided
-     * You must check if the Article found belongs to the user (permission)
+     *
+     * @OA\Delete(
+     *     path="/api/userarticle/{id}",
+     *     operationId="userarticleDelete",
+     *     tags={"userarticle"},
+     *     description="Delete UserArticle",
+     *     security={{"bearer":{}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Parameter(
+     *         name="articleid",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=204,
+     *         description="No content"
+     *     ),
+     * 
+     * )
+     * 
+     * Remove the specified resource from storage.
+     *
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
      */
+
     public function delete($id, $articleId)
     {
         $user = User::find($id);

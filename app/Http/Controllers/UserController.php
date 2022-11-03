@@ -16,6 +16,28 @@ class UserController extends Controller
     {
         $this->model = $user;
     }
+
+    /**
+     *
+     * @OA\Get(
+     *     path="/api/users",
+     *     operationId="usersIndex",
+     *     tags={"Comment"},
+     *     description="Index of Users",
+     *     @OA\Response(
+     *     response= "default",
+     *     description="Success: Array of users",
+     *     @OA\MediaType(
+     *       mediaType="text/plain",
+     *         @OA\Schema(
+     *           type = "array",
+     *              @OA\Items(ref="#/components/schemas/UserData"),
+     *           
+     *         )
+     *     )
+     *   )
+     * )
+     */
     public function index(Request $request)
     {
         return response()->json(User::all(), 200);
@@ -76,6 +98,34 @@ class UserController extends Controller
 
         return response()->json($user, 200);
     }
+
+
+    /**
+     *
+     * @OA\Delete(
+     *     path="/api/user/{id}",
+     *     operationId="userDelete",
+     *     tags={"user"},
+     *     description="Delete User",
+     *     security={{"bearer":{}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=204,
+     *         description="No content"
+     *     ),
+     * 
+     * )
+     * 
+     * Remove the specified resource from storage.
+     *
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
+     */
 
     public function delete($id)
     {

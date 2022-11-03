@@ -24,6 +24,8 @@ class UpdateCommentRequest extends FormRequest
     public function rules()
     {
         return [
+            'product_id'=>'required _without:post_id|integer|exists:products,id',
+            'article_id'=>'required _without:product_id|integer|exists:articles,id',
             'user_id'=>'required|integer|exists:users,id',
             'body' => 'required|string|min:6|max:50',
             'visible' => 'required|boolean',

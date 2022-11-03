@@ -11,9 +11,25 @@ use App\Http\Requests\UpdatePostRequest;
 class PostController extends Controller
 {
     /**
-     * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *     path="/api/posts",
+     *     operationId="postIndex",
+     *     tags={"Post"},
+     *     description="Index of Post",
+     *     @OA\Response(
+     *     response= "default",
+     *     description="Success: Array of Posts",
+     *     @OA\MediaType(
+     *       mediaType="text/plain",
+     *         @OA\Schema(
+     *           type = "array",
+     *              @OA\Items(ref="#/components/schemas/PostData"),
+     *           
+     *         )
+     *     )
+     *   )
+     * )
      */
     public function index(Request $request)
     {
@@ -50,6 +66,32 @@ class PostController extends Controller
         return response()->json($post, 200);
     } 
 
+    /**
+     *
+     * @OA\Delete(
+     *     path="/api/post/{id}",
+     *     operationId="postDelete",
+     *     tags={"post"},
+     *     description="Delete Post",
+     *     security={{"bearer":{}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=204,
+     *         description="No content"
+     *     ),
+     * 
+     * )
+     * 
+     * Remove the specified resource from storage.
+     *
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
+     */
     public function delete($id)
     {
  

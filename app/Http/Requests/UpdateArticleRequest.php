@@ -24,6 +24,7 @@ class UpdateArticleRequest extends FormRequest
     public function rules()
     {
         return [
+            'user_id'=>'required|integer|exists:users,id',
             'name' => 'required|string|min:6|max:36',
             'slug' => 'required|string|min:6|max:36',
             'order' => 'required|integer',

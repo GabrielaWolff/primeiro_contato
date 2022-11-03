@@ -16,6 +16,28 @@ class ArticleController extends Controller
     {
         $this->model = $article;
     }
+
+    /**
+     *
+     * @OA\Get(
+     *     path="/api/articles",
+     *     operationId="articleIndex",
+     *     tags={"Article"},
+     *     description="Index of Article",
+     *     @OA\Response(
+     *     response= "default",
+     *     description="Success: Array of Articles",
+     *     @OA\MediaType(
+     *       mediaType="text/plain",
+     *         @OA\Schema(
+     *           type = "array",
+     *              @OA\Items(ref="#/components/schemas/ArticleData"),
+     *           
+     *         )
+     *     )
+     *   )
+     * )
+     */
     public function index(Request $request)
     {
          
@@ -48,6 +70,33 @@ class ArticleController extends Controller
         return response()->json($article,200); 
     }
 
+
+    /**
+     *
+     * @OA\Delete(
+     *     path="/api/article/{id}",
+     *     operationId="articleDelete",
+     *     tags={"article"},
+     *     description="Delete Article",
+     *     security={{"bearer":{}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=204,
+     *         description="No content"
+     *     ),
+     * 
+     * )
+     * 
+     * Remove the specified resource from storage.
+     *
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
+     */
     public function delete($id)
     {
 

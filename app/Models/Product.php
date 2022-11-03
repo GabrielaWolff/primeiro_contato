@@ -17,4 +17,8 @@ class Product extends Model
     {
         return $this->belongsTo(Store::class);
     }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

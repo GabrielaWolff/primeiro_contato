@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Article;
 use App\Models\Comment;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
-class ArticleCommentController extends Controller
+class ProductCommentController extends Controller
 {
-
+    
     /**
      *
      * @OA\Get(
-     *     path="/api/articlecomments",
-     *     operationId="articlecommentIndex",
-     *     tags={"ArticleComment"},
-     *     description="Index of ArticleComment",
+     *     path="/api/productcomments",
+     *     operationId="productcommentIndex",
+     *     tags={"ProductComment"},
+     *     description="Index of ProductComment",
      *     @OA\Response(
      *     response= "default",
      *     description="Success: Array of Comments",
@@ -30,31 +30,32 @@ class ArticleCommentController extends Controller
      *   )
      * )
      */
+
     public function index($id)
     {
 
-        $article = Article::find($id);
-        return $article->comments;
+        $product = Product::find($id);
+        return $product->comments;
     }
 
     public function show($id, $commentId)
     {
 
-        $article = Article::find($id);
-        $comment = $article->comments()->where('id', $commentId)->first();
+        $product = Product::find($id);
+        $comment = $product->comments()->where('id', $commentId)->first();
         
         return response()->json($comment, 200);
     }
 
     public function store(Request $request, $id)
     {
-        $article = Article::find($id); //encontra o produto pelo id da url
+        $product = Product::find($id); //encontra o produto pelo id da url
         $comment = new Comment(); //cria um novo comment dentro da variavel comment
         
         //dd($comment);
         $comment->body = $request->body; // comment é populado com dados da request
         $comment->visible = $request->visible;
-        $comment->product_id = $article->id;
+        $comment->product_id = $product->id;
         //dd($comment);
         $comment->user_id = $request->user_id;
 
@@ -66,8 +67,8 @@ class ArticleCommentController extends Controller
 
     public function update(Request $request, $id, $commentId)
     {
-        $article = Article::find($id);
-        $comment = $article->comments()->where('id', $commentId)->first();
+        $product = Product::find($id);
+        $comment = $product->comments()->where('id', $commentId)->first();
         $comment->body = $request->body;
         $comment->visible = $request->visible;
         $comment->save();
@@ -79,19 +80,19 @@ class ArticleCommentController extends Controller
     /**
      *
      * @OA\Delete(
-     *     path="/api/articlecomment/{id}",
-     *     operationId="articlecommentDelete",
-     *     tags={"articlecomment"},
-     *     description="Delete ArticleComment",
+     *     path="/api/productcomment/{id}",
+     *     operationId="productcommentDelete",
+     *     tags={"productcomment"},
+     *     description="Delete ProductComment",
      *     security={{"bearer":{}}},
      *     @OA\Parameter(
-     *         name="id",
+     *         name="commentid",
      *         in="path",
      *         required=true,
      *         @OA\Schema(type="integer")
      *     ),
      *     @OA\Parameter(
-     *         name="commentid",
+     *         name="id",
      *         in="path",
      *         required=true,
      *         @OA\Schema(type="integer")
@@ -110,8 +111,8 @@ class ArticleCommentController extends Controller
      */
     public function delete($id, $commentId)
     {
-        $article = Article::find($id);
-        $comment = $article->comments()->where('id', $commentId)->first();
+        $product = Product::find($id);
+        $comment = $product->comments()->where('id', $commentId)->first();
         $comment->delete();
 
         return response()->json($comment, 200);
