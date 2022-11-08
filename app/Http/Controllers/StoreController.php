@@ -9,11 +9,6 @@ use Illuminate\Http\Request;
 
 class StoreController extends Controller
 {
-    /*public function _construct(Store $product)
-    {
-       // $this->model = $store;
-
-    }*/
 
     /**
      *
@@ -41,6 +36,37 @@ class StoreController extends Controller
         return response()->json(Store::all(), 200);
     }
 
+    /**
+     *
+     * @OA\Put(
+     *     path="/api/store/{id}",
+     *     operationId="storeUpdate",
+     *     tags={"Store"},
+     *     description="Update a Store",
+     *     @OA\RequestBody(@OA\JsonContent(ref="#/components/schemas/StoreUpdate")),
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Successful created",
+     *         @OA\JsonContent(ref="#/components/schemas/StoreData"),
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Unprocessable entity"
+     *     )
+     *     
+     * )
+     *
+     * @param  \app\Http\Requests\Comment\StoreRequest  $request
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
+     */
+    
     public function update(UpdateStoreRequest $request, $id)
     {   
         $store = Store::find($id);
@@ -51,6 +77,31 @@ class StoreController extends Controller
         return response()->json($store,200);
     }
 
+    /**
+     *
+     * @OA\Post(
+     *     path="/api/stores",
+     *     operationId="StoreStore",
+     *     tags={"Store"},
+     *     description="Store a Store",
+     *     @OA\RequestBody(@OA\JsonContent(ref="#/components/schemas/StoreStore")),
+     *    
+     *     @OA\Response(
+     *         response=201,
+     *         description="Successful created",
+     *     @OA\JsonContent(ref="#/components/schemas/StoreData"),
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Unprocessable entity"
+     *     )
+     *     
+     * )
+     *
+     * @param  \app\Http\Requests\Comment\StoreRequest  $request
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
+     */
     public function store(StoreStoreRequest $request)
     {
         $data = $request->all();
@@ -70,9 +121,8 @@ class StoreController extends Controller
      * @OA\Delete(
      *     path="/api/store/{id}",
      *     operationId="storeDelete",
-     *     tags={"comment"},
+     *     tags={"Store"},
      *     description="Delete Store",
-     *     security={{"bearer":{}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",

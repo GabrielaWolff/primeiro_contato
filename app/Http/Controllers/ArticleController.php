@@ -50,6 +50,33 @@ class ArticleController extends Controller
         return response()->json($articles, 200);
     }
 
+    /**
+     *
+     * @OA\Post(
+     *     path="/api/articles",
+     *     operationId="articletStore",
+     *     tags={"Article"},
+     *     description="Store a Article",
+     *     @OA\RequestBody(@OA\JsonContent(ref="#/components/schemas/ArticleStore")),
+     *    
+     *     @OA\Response(
+     *         response=201,
+     *         description="Successful created",
+     *     @OA\JsonContent(ref="#/components/schemas/ArticleData"),
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Unprocessable entity"
+     *     )
+     *     
+     * )
+     *
+     * @param  \app\Http\Requests\Article\StoreRequest  $request
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
+     */
+
+
     public function store(StoreArticleRequest $request)
     {
         
@@ -59,6 +86,32 @@ class ArticleController extends Controller
         return response()->json($this->index($request), 201);
     }
   
+    /**
+     *
+     * @OA\Put(
+     *     path="/api/article/{id}",
+     *     operationId="articleUpdate",
+     *     tags={"Article"},
+     *     description="Update a Article",
+     *     @OA\RequestBody(@OA\JsonContent(ref="#/components/schemas/ArticleUpdate")),
+     *     @OA\Parameter(
+     *         name="uuid",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(ref="#/components/schemas/CommentData"),
+     *         
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Unprocessable entity"
+     *     )
+     * )
+     */
     public function update(UpdateArticleRequest $request, $id)
     {
         
@@ -76,9 +129,8 @@ class ArticleController extends Controller
      * @OA\Delete(
      *     path="/api/article/{id}",
      *     operationId="articleDelete",
-     *     tags={"article"},
+     *     tags={"Article"},
      *     description="Delete Article",
-     *     security={{"bearer":{}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",

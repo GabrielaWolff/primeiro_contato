@@ -3,23 +3,30 @@
 namespace App\Models\Swagger\Comment;
 
 /**
- * @OA\Schema(schema="CommentIndex200Response")
+ * @OA\Schema(schema="CommentUpdate")
  */
-class CommentIndex200Response
+class CommentUpdate
 {
+    /**
+     * product_id
+     * @OA\Property(type="integer")
+     * @var integer
+     */
+    public $product_id;
+
     /**
      * user_id
      * @OA\Property(type="integer")
-     * @var integer
+     * @var string
      */
     public $user_id;
 
     /**
-     * product_id
+     * article_id
      * @OA\Property(type="integer")
      * @var string
      */
-    public $product_id;
+    public $article_id;
 
     /**
      * body
@@ -31,7 +38,7 @@ class CommentIndex200Response
     /**
      * visible
      * @OA\Property(type="boolean")
-     * @var string
+     * @var boolean
      */
     public $visible;
 }

@@ -34,20 +34,4 @@ class UserData
      * @var string
      */
     public $image;
-
-    /**
-     * created_at
-     * @OA\Property(type="string")
-     * @var string
-     */
-    public $created_at;
-
-    /**
-     * update_at
-     * @OA\Property(type="boolean")
-     * @var string
-     */
-    public $update_at;
-
-
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models\Swagger\Post;
+namespace App\Models\Swagger\Store;
 
 /**
- * @OA\Schema(schema="PostData")
+ * @OA\Schema(schema="StoreData")
  */
-class PostData
+class StoreData
 {
     /**
      * user_id
@@ -15,25 +15,18 @@ class PostData
     public $user_id;
 
     /**
-     * title
+     * name
      * @OA\Property(type="string")
      * @var string
      */
-    public $title;
+    public $name;
 
     /**
-     * content
+     * description
      * @OA\Property(type="string")
      * @var string
      */
-    public $content;
-
-    /**
-     * tags
-     * @OA\Property(type="string")
-     * @var string
-     */
-    public $tags;
+    public $description;
     
     /**
      * created_at

@@ -46,6 +46,32 @@ class ArticleCommentController extends Controller
         return response()->json($comment, 200);
     }
 
+    /**
+     *
+     * @OA\Post(
+     *     path="/api/articlecomments",
+     *     operationId="articlecommentStore",
+     *     tags={"ArticleComment"},
+     *     description="Store a Comment",
+     *     @OA\RequestBody(@OA\JsonContent(ref="#/components/schemas/CommentStore")),
+     *    
+     *     @OA\Response(
+     *         response=201,
+     *         description="Successful created",
+     *     @OA\JsonContent(ref="#/components/schemas/CommentData"),
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Unprocessable entity"
+     *     )
+     *     
+     * )
+     *
+     * @param  \app\Http\Requests\Comment\StoreRequest  $request
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
+     */
+
     public function store(Request $request, $id)
     {
         $article = Article::find($id); //encontra o produto pelo id da url
@@ -64,6 +90,32 @@ class ArticleCommentController extends Controller
 
     }
 
+    /**
+     *
+     * @OA\Put(
+     *     path="/api/article/{id}/comment/{commentId}",
+     *     operationId="articlecommentUpdate",
+     *     tags={"ArticleComment"},
+     *     description="Update a Comment",
+     *     @OA\RequestBody(@OA\JsonContent(ref="#/components/schemas/CommentUpdate")),
+     *     @OA\Parameter(
+     *         name="uuid",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(ref="#/components/schemas/CommentData"),
+     *         
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Unprocessable entity"
+     *     )
+     * )
+     */
     public function update(Request $request, $id, $commentId)
     {
         $article = Article::find($id);
@@ -81,9 +133,8 @@ class ArticleCommentController extends Controller
      * @OA\Delete(
      *     path="/api/articlecomment/{id}",
      *     operationId="articlecommentDelete",
-     *     tags={"articlecomment"},
+     *     tags={"ArticleComment"},
      *     description="Delete ArticleComment",
-     *     security={{"bearer":{}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",

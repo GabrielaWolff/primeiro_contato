@@ -3,9 +3,9 @@
 namespace App\Models\Swagger\Article;
 
 /**
- * @OA\Schema(schema="ArticleData")
+ * @OA\Schema(schema="ArticleStore")
  */
-class ArticleData
+class ArticleStore
 {
     /**
      * user_id
@@ -35,17 +35,4 @@ class ArticleData
      */
     public $order;
 
-    /**
-     * created_at
-     * @OA\Property(type="string")
-     * @var string
-     */
-    public $created_at;
-
-    /**
-     * updated_at
-     * @OA\Property(type="string")
-     * @var string
-     */
-    public $updated_at;
 }

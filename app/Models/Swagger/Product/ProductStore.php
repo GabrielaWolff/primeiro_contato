@@ -3,9 +3,9 @@
 namespace App\Models\Swagger\Product;
 
 /**
- * @OA\Schema(schema="ProductData")
+ * @OA\Schema(schema="ProductStore")
  */
-class ProductData
+class ProductStore
 {
     /**
      * store_id
@@ -41,18 +41,4 @@ class ProductData
      * @var integer
      */
     public $amount;
-
-    /**
-     * created_at
-     * @OA\Property(type="string")
-     * @var string
-     */
-    public $created_at;
-
-    /**
-     * update_at
-     * @OA\Property(type="boolean")
-     * @var string
-     */
-    public $update_at;
 }

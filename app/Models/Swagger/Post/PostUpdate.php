@@ -3,9 +3,9 @@
 namespace App\Models\Swagger\Post;
 
 /**
- * @OA\Schema(schema="PostData")
+ * @OA\Schema(schema="PostUpdate")
  */
-class PostData
+class PostUpdate
 {
     /**
      * user_id
@@ -34,18 +34,4 @@ class PostData
      * @var string
      */
     public $tags;
-    
-    /**
-     * created_at
-     * @OA\Property(type="string")
-     * @var string
-     */
-    public $created_at;
-
-    /**
-     * update_at
-     * @OA\Property(type="boolean")
-     * @var string
-     */
-    public $update_at;
 }

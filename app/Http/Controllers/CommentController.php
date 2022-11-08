@@ -49,7 +49,8 @@ class CommentController extends Controller
      *     path="/api/comment/{id}",
      *     operationId="commentUpdate",
      *     tags={"Comment"},
-     *     description="Comment update",
+     *     description="Update a Comment",
+     *     @OA\RequestBody(@OA\JsonContent(ref="#/components/schemas/CommentUpdate")),
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -57,22 +58,9 @@ class CommentController extends Controller
      *         @OA\Schema(type="integer")
      *     ),
      *     @OA\Response(
-     *         response= "default",
-     *         description="Successful operation",
-     *         @OA\JsonContent(ref="#/components/schemas/CommentUpdateResponse"),
-     *    )
-     *     ),
-     *     @OA\Parameter(
-     *         name="visible",
-     *         in="query",
-     *         required=true,
-     *         @OA\Schema(type="boolean")
-     *     ),
-     * 
-     *     @OA\Response(
      *         response=201,
      *         description="Successful created",
-     *     @OA\JsonContent(ref="#/components/schemas/CommentData"),
+     *         @OA\JsonContent(ref="#/components/schemas/CommentData"),
      *     ),
      *     @OA\Response(
      *         response=422,
@@ -100,36 +88,11 @@ class CommentController extends Controller
      *
      * @OA\Post(
      *     path="/api/comments",
-     *     operationId="comment",
-     *     tags={"comment"},
-     *     description="Store comment",
-     *     security={{"bearer":{}}},
+     *     operationId="commentStore",
+     *     tags={"Comment"},
+     *     description="Store a Comment",
      *     @OA\RequestBody(@OA\JsonContent(ref="#/components/schemas/CommentStore")),
-     *     @OA\Parameter(
-     *         name="user_id",
-     *         in="query",
-     *         required=true,
-     *         @OA\Schema(type="integer")
-     *     ),
-     *     @OA\Parameter(
-     *         name="product_id",
-     *         in="query",
-     *         required=true,
-     *         @OA\Schema(type="integer")
-     *     ),
-     *     @OA\Parameter(
-     *         name="body",
-     *         in="query",
-     *         required=true,
-     *         @OA\Schema(type="string")
-     *     ),
-     *     @OA\Parameter(
-     *         name="visible",
-     *         in="query",
-     *         required=true,
-     *         @OA\Schema(type="boolean")
-     *     ),
-     * 
+     *    
      *     @OA\Response(
      *         response=201,
      *         description="Successful created",
@@ -166,10 +129,9 @@ class CommentController extends Controller
      *
      * @OA\Delete(
      *     path="/api/comment/{id}",
-     *     operationId="comments",
-     *     tags={"comment"},
-     *     description="Delete Comments",
-     *     security={{"bearer":{}}},
+     *     operationId="commentDelete",
+     *     tags={"Comment"},
+     *     description="Delete Comment",
      *     @OA\Parameter(
      *         name="id",
      *         in="path",

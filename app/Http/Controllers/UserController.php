@@ -21,9 +21,9 @@ class UserController extends Controller
      *
      * @OA\Get(
      *     path="/api/users",
-     *     operationId="usersIndex",
+     *     operationId="userIndex",
      *     tags={"Comment"},
-     *     description="Index of Users",
+     *     description="Index of User",
      *     @OA\Response(
      *     response= "default",
      *     description="Success: Array of users",
@@ -49,6 +49,31 @@ class UserController extends Controller
         return response()->json($users, 200);
     }
 
+     /**
+     *
+     * @OA\Post(
+     *     path="/api/users",
+     *     operationId="userStore",
+     *     tags={"User"},
+     *     description="Store a User",
+     *     @OA\RequestBody(@OA\JsonContent(ref="#/components/schemas/UserStore")),
+     *    
+     *     @OA\Response(
+     *         response=201,
+     *         description="Successful created",
+     *     @OA\JsonContent(ref="#/components/schemas/UserData"),
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Unprocessable entity"
+     *     )
+     *     
+     * )
+     *
+     * @param  \app\Http\Requests\Comment\StoreRequest  $request
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
+     */
     public function store(StoreUserRequest $request)
     {
         $data = $request->validated();
@@ -60,8 +85,6 @@ class UserController extends Controller
         }
 
         $user = User::create($data);
-
-
         return $this->index($request);
     }
 
@@ -77,6 +100,36 @@ class UserController extends Controller
         return view('users.edit', compact('user'));
     }
 
+     /**
+     *
+     * @OA\Put(
+     *     path="/api/user/{id}",
+     *     operationId="userUpdate",
+     *     tags={"User"},
+     *     description="Update a User",
+     *     @OA\RequestBody(@OA\JsonContent(ref="#/components/schemas/UserUpdate")),
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Successful created",
+     *         @OA\JsonContent(ref="#/components/schemas/UserData"),
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Unprocessable entity"
+     *     )
+     *     
+     * )
+     *
+     * @param  \app\Http\Requests\Comment\StoreRequest  $request
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
+     */
     public function update(UpdateUserRequest $request, $id)
     {
         if (!$user = $this->model->find($id)) {
@@ -105,9 +158,8 @@ class UserController extends Controller
      * @OA\Delete(
      *     path="/api/user/{id}",
      *     operationId="userDelete",
-     *     tags={"user"},
+     *     tags={"User"},
      *     description="Delete User",
-     *     security={{"bearer":{}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",

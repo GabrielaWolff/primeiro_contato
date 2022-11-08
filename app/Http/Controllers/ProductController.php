@@ -41,6 +41,36 @@ class ProductController extends Controller
         return response()->json(Product::all(), 200);
     }
 
+    /**
+     *
+     * @OA\Put(
+     *     path="/api/product/{id}",
+     *     operationId="productUpdate",
+     *     tags={"Product"},
+     *     description="Update a Product",
+     *     @OA\RequestBody(@OA\JsonContent(ref="#/components/schemas/ProductUpdate")),
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Successful created",
+     *         @OA\JsonContent(ref="#/components/schemas/ProductData"),
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Unprocessable entity"
+     *     )
+     *     
+     * )
+     *
+     * @param  \app\Http\Requests\Comment\StoreRequest  $request
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
+     */
     public function update(UpdateProductRequest $request, $id)
     {   
         $product = Product::find($id);
@@ -51,6 +81,31 @@ class ProductController extends Controller
         return response()->json($product,200);
     }
 
+     /**
+     *
+     * @OA\Post(
+     *     path="/api/products",
+     *     operationId="ProductStore",
+     *     tags={"Product"},
+     *     description="Store a Product",
+     *     @OA\RequestBody(@OA\JsonContent(ref="#/components/schemas/ProductStore")),
+     *    
+     *     @OA\Response(
+     *         response=201,
+     *         description="Successful created",
+     *     @OA\JsonContent(ref="#/components/schemas/ProductData"),
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Unprocessable entity"
+     *     )
+     *     
+     * )
+     *
+     * @param  \app\Http\Requests\Comment\StoreRequest  $request
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
+     */
     public function store(StoreProductRequest $request)
     {
         $data = $request->all();
@@ -70,9 +125,8 @@ class ProductController extends Controller
      * @OA\Delete(
      *     path="/api/product/{id}",
      *     operationId="productDelete",
-     *     tags={"product"},
+     *     tags={"Product"},
      *     description="Delete Product",
-     *     security={{"bearer":{}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",

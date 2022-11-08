@@ -8,6 +8,27 @@ use Illuminate\Http\Request;
 
 class UserArticleController extends Controller
 {
+    /**
+     *
+     * @OA\Get(
+     *     path="/api/userarticles",
+     *     operationId="userarticleIndex",
+     *     tags={"UserArticle"},
+     *     description="Index of UserArticle",
+     *     @OA\Response(
+     *     response= "default",
+     *     description="Success: Array of Articles",
+     *     @OA\MediaType(
+     *       mediaType="text/plain",
+     *         @OA\Schema(
+     *           type = "array",
+     *              @OA\Items(ref="#/components/schemas/ArticleData"),
+     *           
+     *         )
+     *     )
+     *   )
+     * )
+     */
     public function index()
     {
         $users = User::with('articles')->get();
@@ -27,10 +48,30 @@ class UserArticleController extends Controller
         return response()->json($article, 200);
     }
 
-    /**
-     * POST
-     * Create a Article that belongs to the user with
-     * the id provided
+   /**
+     *
+     * @OA\Post(
+     *     path="/api/userarticles",
+     *     operationId="userarticleStore",
+     *     tags={"UserArticle"},
+     *     description="Store a Article",
+     *     @OA\RequestBody(@OA\JsonContent(ref="#/components/schemas/ArticleStore")),
+     *    
+     *     @OA\Response(
+     *         response=201,
+     *         description="Successful created",
+     *     @OA\JsonContent(ref="#/components/schemas/ArticleData"),
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Unprocessable entity"
+     *     )
+     *     
+     * )
+     *
+     * @param  \app\Http\Requests\Comment\StoreRequest  $request
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
      */
     public function store(Request $request, $id)
     {
@@ -46,11 +87,35 @@ class UserArticleController extends Controller
 
     }
 
-    /**
-     * PUT
-     * Update a Article that has to belong to the user with
-     * the id provided
-     * You must check if the Article found belongs to the user (permission)
+     /**
+     *
+     * @OA\Put(
+     *     path="/api/userarticles/{id}/{articleId}",
+     *     operationId="userarticleUpdate",
+     *     tags={"UserArticle"},
+     *     description="Update a Article",
+     *     @OA\RequestBody(@OA\JsonContent(ref="#/components/schemas/ArticleUpdate")),
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Successful created",
+     *         @OA\JsonContent(ref="#/components/schemas/ArticleData"),
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Unprocessable entity"
+     *     )
+     *     
+     * )
+     *
+     * @param  \app\Http\Requests\Comment\StoreRequest  $request
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id, $articleId)
     {
@@ -71,9 +136,8 @@ class UserArticleController extends Controller
      * @OA\Delete(
      *     path="/api/userarticle/{id}",
      *     operationId="userarticleDelete",
-     *     tags={"userarticle"},
+     *     tags={"UserArticle"},
      *     description="Delete UserArticle",
-     *     security={{"bearer":{}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",

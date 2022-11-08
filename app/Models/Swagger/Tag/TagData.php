@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models\Swagger\Article;
+namespace App\Models\Swagger\Tag;
 
 /**
- * @OA\Schema(schema="ArticleData")
+ * @OA\Schema(schema="TagData")
  */
-class ArticleData
+class TagData
 {
     /**
      * user_id
@@ -22,18 +22,11 @@ class ArticleData
     public $name;
 
     /**
-     * slug
-     * @OA\Property(type="string")
+     * update_at
+     * @OA\Property(type="boolean")
      * @var string
      */
-    public $slug;
-
-    /**
-     * order
-     * @OA\Property(type="string")
-     * @var string
-     */
-    public $order;
+    public $update_at;
 
     /**
      * created_at
@@ -43,9 +36,10 @@ class ArticleData
     public $created_at;
 
     /**
-     * updated_at
-     * @OA\Property(type="string")
-     * @var string
+     * id
+     * @OA\Property(type="integer")
+     * @var integer
      */
-    public $updated_at;
+    public $id;
+
 }

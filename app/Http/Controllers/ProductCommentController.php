@@ -47,6 +47,31 @@ class ProductCommentController extends Controller
         return response()->json($comment, 200);
     }
 
+    /**
+     *
+     * @OA\Post(
+     *     path="/api/productcomments",
+     *     operationId="ProductCommentStore",
+     *     tags={"ProductComment"},
+     *     description="Store a Comment",
+     *     @OA\RequestBody(@OA\JsonContent(ref="#/components/schemas/CommentStore")),
+     *    
+     *     @OA\Response(
+     *         response=201,
+     *         description="Successful created",
+     *     @OA\JsonContent(ref="#/components/schemas/CommentData"),
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Unprocessable entity"
+     *     )
+     *     
+     * )
+     *
+     * @param  \app\Http\Requests\Comment\StoreRequest  $request
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request, $id)
     {
         $product = Product::find($id); //encontra o produto pelo id da url
@@ -65,6 +90,36 @@ class ProductCommentController extends Controller
 
     }
 
+    /**
+     *
+     * @OA\Put(
+     *     path="/api/product/{id}/comment/{commentId}",
+     *     operationId="productcommentUpdate",
+     *     tags={"ProductComment"},
+     *     description="Update a Comment",
+     *     @OA\RequestBody(@OA\JsonContent(ref="#/components/schemas/CommentUpdate")),
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Successful created",
+     *         @OA\JsonContent(ref="#/components/schemas/CommentData"),
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Unprocessable entity"
+     *     )
+     *     
+     * )
+     *
+     * @param  \app\Http\Requests\Comment\StoreRequest  $request
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request, $id, $commentId)
     {
         $product = Product::find($id);
@@ -82,9 +137,8 @@ class ProductCommentController extends Controller
      * @OA\Delete(
      *     path="/api/productcomment/{id}",
      *     operationId="productcommentDelete",
-     *     tags={"productcomment"},
+     *     tags={"ProductComment"},
      *     description="Delete ProductComment",
-     *     security={{"bearer":{}}},
      *     @OA\Parameter(
      *         name="commentid",
      *         in="path",

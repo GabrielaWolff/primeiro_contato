@@ -8,6 +8,13 @@ namespace App\Models\Swagger\Comment;
 class CommentData
 {
     /**
+     * id
+     * @OA\Property(type="integer")
+     * @var integer
+     */
+    public $id;
+
+    /**
      * user_id
      * @OA\Property(type="integer")
      * @var integer
@@ -41,4 +48,19 @@ class CommentData
      * @var string
      */
     public $visible;
+
+    /**
+     * created_at
+     * @OA\Property(type="string")
+     * @var string
+     */
+    public $created_at;
+
+    /**
+     * update_at
+     * @OA\Property(type="boolean")
+     * @var string
+     */
+    public $update_at;
 }
+

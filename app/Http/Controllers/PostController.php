@@ -38,6 +38,36 @@ class PostController extends Controller
         return response()->json($posts, 200);
     }
 
+    /**
+     *
+     * @OA\Put(
+     *     path="/api/post/{id}",
+     *     operationId="postUpdate",
+     *     tags={"Post"},
+     *     description="Update a Post",
+     *     @OA\RequestBody(@OA\JsonContent(ref="#/components/schemas/PostUpdate")),
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Successful created",
+     *         @OA\JsonContent(ref="#/components/schemas/CommentData"),
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Unprocessable entity"
+     *     )
+     *     
+     * )
+     *
+     * @param  \app\Http\Requests\Comment\StoreRequest  $request
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
+     */
     public function update(UpdatePostRequest $request, $id)
     {   
         $post = Post::find($id);
@@ -50,12 +80,37 @@ class PostController extends Controller
         return response()->json($this->show($id),200);
     }
 
+    /**
+     *
+     * @OA\Post(
+     *     path="/api/posts",
+     *     operationId="postStore",
+     *     tags={"Post"},
+     *     description="Store a Post",
+     *     @OA\RequestBody(@OA\JsonContent(ref="#/components/schemas/PostStore")),
+     *    
+     *     @OA\Response(
+     *         response=201,
+     *         description="Successful created",
+     *     @OA\JsonContent(ref="#/components/schemas/PostData"),
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Unprocessable entity"
+     *     )
+     *     
+     * )
+     *
+     * @param  \app\Http\Requests\Post\StoreRequest  $request
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
+     */
     public function store(StorePostRequest $request)
     {
         $data = $request->all();
  
         $post = Post::create($data);
-        $post->tags()->attach($data['bananas']);  //cria relaçoes many to many. em post attach tags
+        $post->tags()->attach($data['tags']);  //cria relaçoes many to many. em post attach tags
         return response()->json($post, 201);
     }
 
@@ -71,7 +126,7 @@ class PostController extends Controller
      * @OA\Delete(
      *     path="/api/post/{id}",
      *     operationId="postDelete",
-     *     tags={"post"},
+     *     tags={"Post"},
      *     description="Delete Post",
      *     security={{"bearer":{}}},
      *     @OA\Parameter(

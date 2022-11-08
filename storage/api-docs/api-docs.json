@@ -32,7 +32,7 @@
         "/api/articlecomment/{id}": {
             "delete": {
                 "tags": [
-                    "articlecomment"
+                    "ArticleComment"
                 ],
                 "description": "Delete ArticleComment",
                 "operationId": "articlecommentDelete",
@@ -58,12 +58,7 @@
                     "204": {
                         "description": "No content"
                     }
-                },
-                "security": [
-                    {
-                        "bearer": []
-                    }
-                ]
+                }
             }
         },
         "/api/articles": {
@@ -93,7 +88,7 @@
         "/api/article/{id}": {
             "delete": {
                 "tags": [
-                    "article"
+                    "Article"
                 ],
                 "description": "Delete Article",
                 "operationId": "articleDelete",
@@ -111,12 +106,7 @@
                     "204": {
                         "description": "No content"
                     }
-                },
-                "security": [
-                    {
-                        "bearer": []
-                    }
-                ]
+                }
             }
         },
         "/api/articleusers": {
@@ -148,8 +138,8 @@
                 "tags": [
                     "Comments"
                 ],
-                "description": "Index of Comments",
-                "operationId": "commentsIndex",
+                "description": "Index of Comment",
+                "operationId": "commentIndex",
                 "responses": {
                     "default": {
                         "description": "Success: Array of comments",
@@ -269,10 +259,10 @@
             },
             "delete": {
                 "tags": [
-                    "comment"
+                    "Comment"
                 ],
                 "description": "Delete Comments",
-                "operationId": "comments",
+                "operationId": "commentDelete",
                 "parameters": [
                     {
                         "name": "id",
@@ -301,7 +291,7 @@
                     "Post"
                 ],
                 "description": "Index of Post",
-                "operationId": "postsIndex",
+                "operationId": "postIndex",
                 "responses": {
                     "default": {
                         "description": "Success: Array of Posts",
@@ -322,7 +312,7 @@
         "/api/post/{id}": {
             "delete": {
                 "tags": [
-                    "post"
+                    "Post"
                 ],
                 "description": "Delete Post",
                 "operationId": "postDelete",
@@ -353,8 +343,8 @@
                 "tags": [
                     "ProductComment"
                 ],
-                "description": "Index of ProductComments",
-                "operationId": "productcommentsIndex",
+                "description": "Index of ProductComment",
+                "operationId": "productcommentIndex",
                 "responses": {
                     "default": {
                         "description": "Success: Array of Comments",
@@ -375,7 +365,7 @@
         "/api/productcomment/{id}": {
             "delete": {
                 "tags": [
-                    "productcomment"
+                    "ProductComment"
                 ],
                 "description": "Delete ProductComment",
                 "operationId": "productcommentDelete",
@@ -401,12 +391,7 @@
                     "204": {
                         "description": "No content"
                     }
-                },
-                "security": [
-                    {
-                        "bearer": []
-                    }
-                ]
+                }
             }
         },
         "/api/products": {
@@ -414,8 +399,8 @@
                 "tags": [
                     "Product"
                 ],
-                "description": "Index of Products",
-                "operationId": "productsIndex",
+                "description": "Index of Product",
+                "operationId": "productIndex",
                 "responses": {
                     "default": {
                         "description": "Success: Array of Products",
@@ -436,7 +421,7 @@
         "/api/product/{id}": {
             "delete": {
                 "tags": [
-                    "product"
+                    "Product"
                 ],
                 "description": "Delete Product",
                 "operationId": "productDelete",
@@ -454,18 +439,37 @@
                     "204": {
                         "description": "No content"
                     }
-                },
-                "security": [
-                    {
-                        "bearer": []
+                }
+            }
+        },
+        "/api/stores": {
+            "get": {
+                "tags": [
+                    "Store"
+                ],
+                "description": "Index of Store",
+                "operationId": "storeIndex",
+                "responses": {
+                    "default": {
+                        "description": "Success: Array of Stores",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/StoreData"
+                                    }
+                                }
+                            }
+                        }
                     }
-                ]
+                }
             }
         },
         "/api/store/{id}": {
             "delete": {
                 "tags": [
-                    "comment"
+                    "Store"
                 ],
                 "description": "Delete Store",
                 "operationId": "storeDelete",
@@ -483,18 +487,37 @@
                     "204": {
                         "description": "No content"
                     }
-                },
-                "security": [
-                    {
-                        "bearer": []
+                }
+            }
+        },
+        "/api/tags": {
+            "get": {
+                "tags": [
+                    "Tag"
+                ],
+                "description": "Index of Tag",
+                "operationId": "tagIndex",
+                "responses": {
+                    "default": {
+                        "description": "Success: Array of Tags",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/TagData"
+                                    }
+                                }
+                            }
+                        }
                     }
-                ]
+                }
             }
         },
         "/api/tag/{id}": {
             "delete": {
                 "tags": [
-                    "comment"
+                    "Tag"
                 ],
                 "description": "Delete tag",
                 "operationId": "tagDelete",
@@ -512,18 +535,37 @@
                     "204": {
                         "description": "No content"
                     }
-                },
-                "security": [
-                    {
-                        "bearer": []
+                }
+            }
+        },
+        "/api/userarticles": {
+            "get": {
+                "tags": [
+                    "UserArticle"
+                ],
+                "description": "Index of UserArticle",
+                "operationId": "userarticleIndex",
+                "responses": {
+                    "default": {
+                        "description": "Success: Array of Articles",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ArticleData"
+                                    }
+                                }
+                            }
+                        }
                     }
-                ]
+                }
             }
         },
         "/api/userarticle/{id}": {
             "delete": {
                 "tags": [
-                    "userarticle"
+                    "UserArticle"
                 ],
                 "description": "Delete UserArticle",
                 "operationId": "userarticleDelete",
@@ -549,12 +591,7 @@
                     "204": {
                         "description": "No content"
                     }
-                },
-                "security": [
-                    {
-                        "bearer": []
-                    }
-                ]
+                }
             }
         },
         "/api/users": {
@@ -562,8 +599,8 @@
                 "tags": [
                     "Comment"
                 ],
-                "description": "Index of Users",
-                "operationId": "usersIndex",
+                "description": "Index of User",
+                "operationId": "userIndex",
                 "responses": {
                     "default": {
                         "description": "Success: Array of users",
@@ -584,7 +621,7 @@
         "/api/user/{id}": {
             "delete": {
                 "tags": [
-                    "user"
+                    "User"
                 ],
                 "description": "Delete User",
                 "operationId": "userDelete",
@@ -602,12 +639,7 @@
                     "204": {
                         "description": "No content"
                     }
-                },
-                "security": [
-                    {
-                        "bearer": []
-                    }
-                ]
+                }
             }
         }
     },
@@ -642,27 +674,6 @@
                     },
                     "article_id": {
                         "description": "article_id",
-                        "type": "integer"
-                    },
-                    "product_id": {
-                        "description": "product_id",
-                        "type": "integer"
-                    },
-                    "body": {
-                        "description": "body",
-                        "type": "string"
-                    },
-                    "visible": {
-                        "description": "visible",
-                        "type": "boolean"
-                    }
-                },
-                "type": "object"
-            },
-            "CommentIndex200Response": {
-                "properties": {
-                    "user_id": {
-                        "description": "user_id",
                         "type": "integer"
                     },
                     "product_id": {
@@ -740,6 +751,36 @@
                     "amount": {
                         "description": "amount",
                         "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreData": {
+                "properties": {
+                    "user_id": {
+                        "description": "user_id",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "description": "name",
+                        "type": "string"
+                    },
+                    "description": {
+                        "description": "description",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "TagData": {
+                "properties": {
+                    "user_id": {
+                        "description": "user_id",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "description": "name",
+                        "type": "string"
                     }
                 },
                 "type": "object"
